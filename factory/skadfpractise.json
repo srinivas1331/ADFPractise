@@ -1,0 +1,9 @@
+{
+	"name": "skadfpractise",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a00bb412-b659-4935-aab7-486e9b92a926",
+		"tenantId": "bae813f0-c50f-49d2-b620-b4af2490ecdc"
+	}
+}
