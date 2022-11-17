@@ -35,7 +35,93 @@
 							"type": "JsonWriteSettings"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "country",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['country']"
+								}
+							},
+							{
+								"source": {
+									"name": "country_code",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['country_code']"
+								}
+							},
+							{
+								"source": {
+									"name": "year_week",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['year_week']"
+								}
+							},
+							{
+								"source": {
+									"name": "new_cases",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['new_cases']"
+								}
+							},
+							{
+								"source": {
+									"name": "tests_done",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['tests_done']"
+								}
+							},
+							{
+								"source": {
+									"name": "population",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['population']"
+								}
+							},
+							{
+								"source": {
+									"name": "testing_rate",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['testing_rate']"
+								}
+							},
+							{
+								"source": {
+									"name": "positivity_rate",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['positivity_rate']"
+								}
+							},
+							{
+								"source": {
+									"name": "testing_data_source",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['testing_data_source']"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
