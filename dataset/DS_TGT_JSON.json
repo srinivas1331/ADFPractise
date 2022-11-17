@@ -1,0 +1,18 @@
+{
+	"name": "DS_TGT_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SKSAMPLE",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "hr123stg"
+			}
+		},
+		"schema": {}
+	}
+}
