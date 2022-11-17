@@ -7,13 +7,13 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "skadfpractise"
 		},
-		"LS_SKSAMPLE_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_SKSAMPLE'"
-		},
 		"LS_LandingStg_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_LandingStg'"
+		},
+		"LS_SKSAMPLE_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SKSAMPLE'"
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
 			"type": "string",
@@ -24,6 +24,145 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy_CSV_to_JSON')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Loading Order csv  file as  JSON format File",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Orders",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_TGT_JSON",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Srinivas"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Orders')]",
+				"[concat(variables('factoryId'), '/datasets/DS_TGT_JSON')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy_Parquet_to_JSON')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Data PARQUET to JSON",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_ORDER_PARQUETFILE",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_ORDER_JSONFILE",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Srinivas"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_ORDER_PARQUETFILE')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ORDER_JSONFILE')]"
+			]
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Example1_Copy_SRCtoTGT')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -182,35 +321,168 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_SKSAMPLE')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/DS_ORDER_JSONFILE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "This LInked service to connect SKSAMPLE blobstorage",
+				"linkedServiceName": {
+					"referenceName": "LS_LandingStg",
+					"type": "LinkedServiceReference"
+				},
 				"annotations": [],
-				"type": "AzureBlobStorage",
+				"type": "Json",
 				"typeProperties": {
-					"connectionString": "[parameters('LS_SKSAMPLE_connectionString')]"
-				}
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "JSON_To_Parquet",
+						"fileSystem": "src"
+					}
+				},
+				"schema": {}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_LandingStg')]"
+			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_LandingStg')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/DS_ORDER_PARQUETFILE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_LandingStg",
+					"type": "LinkedServiceReference"
+				},
 				"annotations": [],
-				"type": "AzureBlobFS",
+				"type": "Parquet",
 				"typeProperties": {
-					"url": "[parameters('LS_LandingStg_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('LS_LandingStg_accountKey')]"
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Order-uBcGW3Ss6V.parquet",
+						"folderPath": "Parquet",
+						"fileSystem": "src"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "Prop_0",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_1",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_2",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_3",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_4",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_5",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_6",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_7",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_8",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_9",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_10",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_11",
+						"type": "UTF8"
 					}
-				}
+				]
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_LandingStg')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Orders')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_LandingStg",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Order.csv",
+						"folderPath": "stg",
+						"fileSystem": "src"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_LandingStg')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DS_SRC_CSV')]",
@@ -293,140 +565,35 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Copy_CSV_to_JSON')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/LS_LandingStg')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Loading Order csv  file as  JSON format File",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "JsonSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "JsonWriteSettings"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_Orders",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_TGT_JSON",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_LandingStg_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_LandingStg_accountKey')]"
 					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "Srinivas"
-				},
-				"annotations": []
+				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_Orders')]",
-				"[concat(variables('factoryId'), '/datasets/DS_TGT_JSON')]"
-			]
+			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_Orders')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/LS_SKSAMPLE')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_LandingStg",
-					"type": "LinkedServiceReference"
-				},
+				"description": "This LInked service to connect SKSAMPLE blobstorage",
 				"annotations": [],
-				"type": "DelimitedText",
+				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": "Order.csv",
-						"folderPath": "stg",
-						"fileSystem": "src"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
+					"connectionString": "[parameters('LS_SKSAMPLE_connectionString')]"
+				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_LandingStg')]"
-			]
+			"dependsOn": []
 		}
 	]
 }

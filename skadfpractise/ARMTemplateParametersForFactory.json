@@ -5,10 +5,10 @@
 		"factoryName": {
 			"value": "skadfpractise"
 		},
-		"LS_SKSAMPLE_connectionString": {
+		"LS_LandingStg_accountKey": {
 			"value": ""
 		},
-		"LS_LandingStg_accountKey": {
+		"LS_SKSAMPLE_connectionString": {
 			"value": ""
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
