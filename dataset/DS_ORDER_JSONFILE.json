@@ -1,0 +1,19 @@
+{
+	"name": "DS_ORDER_JSONFILE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_LandingStg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "JSON_To_Parquet",
+				"fileSystem": "src"
+			}
+		},
+		"schema": {}
+	}
+}
