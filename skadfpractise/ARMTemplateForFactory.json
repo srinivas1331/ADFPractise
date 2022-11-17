@@ -63,7 +63,93 @@
 									"type": "JsonWriteSettings"
 								}
 							},
-							"enableStaging": false
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "country",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['country']"
+										}
+									},
+									{
+										"source": {
+											"name": "country_code",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['country_code']"
+										}
+									},
+									{
+										"source": {
+											"name": "year_week",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['year_week']"
+										}
+									},
+									{
+										"source": {
+											"name": "new_cases",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['new_cases']"
+										}
+									},
+									{
+										"source": {
+											"name": "tests_done",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['tests_done']"
+										}
+									},
+									{
+										"source": {
+											"name": "population",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['population']"
+										}
+									},
+									{
+										"source": {
+											"name": "testing_rate",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['testing_rate']"
+										}
+									},
+									{
+										"source": {
+											"name": "positivity_rate",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['positivity_rate']"
+										}
+									},
+									{
+										"source": {
+											"name": "testing_data_source",
+											"type": "String"
+										},
+										"sink": {
+											"path": "$['testing_data_source']"
+										}
+									}
+								]
+							}
 						},
 						"inputs": [
 							{
@@ -204,6 +290,142 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_SKSAMPLE')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Copy_CSV_to_JSON')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Loading Order csv  file as  JSON format File",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Orders",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_TGT_JSON",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Srinivas"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Orders')]",
+				"[concat(variables('factoryId'), '/datasets/DS_TGT_JSON')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Orders')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_LandingStg",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Order.csv",
+						"folderPath": "stg",
+						"fileSystem": "src"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_LandingStg')]"
 			]
 		}
 	]
