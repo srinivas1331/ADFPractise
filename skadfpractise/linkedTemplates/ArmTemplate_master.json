@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SKSAMPLE'"
 		},
+		"AzureFileStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
+		},
 		"LS_LandingStg_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://landingstg.dfs.core.windows.net/"
@@ -51,6 +55,9 @@
 					},
 					"LS_SKSAMPLE_connectionString": {
 						"value": "[parameters('LS_SKSAMPLE_connectionString')]"
+					},
+					"AzureFileStorage1_connectionString": {
+						"value": "[parameters('AzureFileStorage1_connectionString')]"
 					},
 					"LS_LandingStg_properties_typeProperties_url": {
 						"value": "[parameters('LS_LandingStg_properties_typeProperties_url')]"
