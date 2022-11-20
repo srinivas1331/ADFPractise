@@ -454,6 +454,7 @@
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
+					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
 				"schema": []
@@ -601,8 +602,8 @@
 											"type": "Int32"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 1
+											"name": "CustomerID",
+											"type": "String"
 										}
 									},
 									{
@@ -611,8 +612,8 @@
 											"type": "Boolean"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 2
+											"name": "NameStyle",
+											"type": "String"
 										}
 									},
 									{
@@ -621,8 +622,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 3
+											"name": "Title",
+											"type": "String"
 										}
 									},
 									{
@@ -631,8 +632,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 4
+											"name": "FirstName",
+											"type": "String"
 										}
 									},
 									{
@@ -641,8 +642,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 5
+											"name": "MiddleName",
+											"type": "String"
 										}
 									},
 									{
@@ -651,8 +652,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 6
+											"name": "LastName",
+											"type": "String"
 										}
 									},
 									{
@@ -661,8 +662,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 7
+											"name": "Suffix",
+											"type": "String"
 										}
 									},
 									{
@@ -671,8 +672,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 8
+											"name": "CompanyName",
+											"type": "String"
 										}
 									},
 									{
@@ -681,8 +682,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 9
+											"name": "SalesPerson",
+											"type": "String"
 										}
 									},
 									{
@@ -691,8 +692,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 10
+											"name": "EmailAddress",
+											"type": "String"
 										}
 									},
 									{
@@ -701,8 +702,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 11
+											"name": "Phone",
+											"type": "String"
 										}
 									},
 									{
@@ -711,8 +712,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 12
+											"name": "PasswordHash",
+											"type": "String"
 										}
 									},
 									{
@@ -721,8 +722,8 @@
 											"type": "String"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 13
+											"name": "PasswordSalt",
+											"type": "String"
 										}
 									},
 									{
@@ -731,8 +732,8 @@
 											"type": "Guid"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 14
+											"name": "rowguid",
+											"type": "String"
 										}
 									},
 									{
@@ -741,8 +742,8 @@
 											"type": "DateTime"
 										},
 										"sink": {
-											"type": "String",
-											"ordinal": 15
+											"name": "ModifiedDate",
+											"type": "String"
 										}
 									}
 								]
