@@ -96,6 +96,26 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "Execute Child Pipeline Address",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "CopyData from Prod Table",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "Child_Copy_AddressTableData",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
 						}
 					],
 					"ifTrueActivities": [
