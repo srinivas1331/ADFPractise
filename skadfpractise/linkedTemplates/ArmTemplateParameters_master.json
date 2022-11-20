@@ -5,13 +5,16 @@
 		"factoryName": {
 			"value": "skadfpractise"
 		},
+		"AzureFileStorage1_connectionString": {
+			"value": ""
+		},
 		"LS_LandingStg_accountKey": {
 			"value": ""
 		},
 		"LS_SKSAMPLE_connectionString": {
 			"value": ""
 		},
-		"AzureFileStorage1_connectionString": {
+		"LS_SQLDB_connectionString": {
 			"value": ""
 		},
 		"LS_LandingStg_properties_typeProperties_url": {

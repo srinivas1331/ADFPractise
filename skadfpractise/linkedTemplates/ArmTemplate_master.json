@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "skadfpractise"
 		},
+		"AzureFileStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
+		},
 		"LS_LandingStg_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_LandingStg'"
@@ -15,9 +19,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SKSAMPLE'"
 		},
-		"AzureFileStorage1_connectionString": {
+		"LS_SQLDB_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB'"
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
 			"type": "string",
@@ -50,14 +54,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureFileStorage1_connectionString": {
+						"value": "[parameters('AzureFileStorage1_connectionString')]"
+					},
 					"LS_LandingStg_accountKey": {
 						"value": "[parameters('LS_LandingStg_accountKey')]"
 					},
 					"LS_SKSAMPLE_connectionString": {
 						"value": "[parameters('LS_SKSAMPLE_connectionString')]"
 					},
-					"AzureFileStorage1_connectionString": {
-						"value": "[parameters('AzureFileStorage1_connectionString')]"
+					"LS_SQLDB_connectionString": {
+						"value": "[parameters('LS_SQLDB_connectionString')]"
 					},
 					"LS_LandingStg_properties_typeProperties_url": {
 						"value": "[parameters('LS_LandingStg_properties_typeProperties_url')]"
