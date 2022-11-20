@@ -41,7 +41,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@greater(activity('Fetch Record Count').output.firstRow.RecordCnt,1000)\n",
+						"value": "@greater(activity('Fetch Record Count').output.firstRow.rowcnt,1000)\n",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
