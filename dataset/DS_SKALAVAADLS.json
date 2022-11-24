@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "address",
+				"fileName": "CUSTOMER and Addr Details",
 				"fileSystem": "adlscontainer"
 			},
 			"columnDelimiter": ",",
