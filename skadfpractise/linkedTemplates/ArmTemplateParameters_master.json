@@ -11,6 +11,9 @@
 		"LS_LandingStg_accountKey": {
 			"value": ""
 		},
+		"LS_SKALAVAADLS_accountKey": {
+			"value": ""
+		},
 		"LS_SKSAMPLE_connectionString": {
 			"value": ""
 		},
@@ -19,6 +22,9 @@
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
 			"value": "https://landingstg.dfs.core.windows.net/"
+		},
+		"LS_SKALAVAADLS_properties_typeProperties_url": {
+			"value": "https://skalavaadls.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"value": ""

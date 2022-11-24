@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_LandingStg'"
 		},
+		"LS_SKALAVAADLS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_SKALAVAADLS'"
+		},
 		"LS_SKSAMPLE_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SKSAMPLE'"
@@ -26,6 +30,10 @@
 		"LS_LandingStg_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://landingstg.dfs.core.windows.net/"
+		},
+		"LS_SKALAVAADLS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -60,6 +68,9 @@
 					"LS_LandingStg_accountKey": {
 						"value": "[parameters('LS_LandingStg_accountKey')]"
 					},
+					"LS_SKALAVAADLS_accountKey": {
+						"value": "[parameters('LS_SKALAVAADLS_accountKey')]"
+					},
 					"LS_SKSAMPLE_connectionString": {
 						"value": "[parameters('LS_SKSAMPLE_connectionString')]"
 					},
@@ -68,6 +79,9 @@
 					},
 					"LS_LandingStg_properties_typeProperties_url": {
 						"value": "[parameters('LS_LandingStg_properties_typeProperties_url')]"
+					},
+					"LS_SKALAVAADLS_properties_typeProperties_url": {
+						"value": "[parameters('LS_SKALAVAADLS_properties_typeProperties_url')]"
 					}
 				}
 			},
