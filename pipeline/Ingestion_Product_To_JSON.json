@@ -22,7 +22,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "DS_AddressTable",
+						"referenceName": "DS_ProdTable",
 						"type": "DatasetReference"
 					}
 				}
