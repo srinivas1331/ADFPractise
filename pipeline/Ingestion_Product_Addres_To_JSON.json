@@ -96,6 +96,26 @@
 									"type": "DatasetReference"
 								}
 							]
+						},
+						{
+							"name": "Execute Address TBL PipleLine",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "CopyProductTableToJSON",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "Child_Copy_AddressTableData",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
 						}
 					]
 				}
