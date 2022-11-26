@@ -1100,7 +1100,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "select top 10 Title,FirstName,MiddleName,LastName,AddressLine1,AddressLine2,City,StateProvince,CountryRegion,PostalCode\nfrom\n[SalesLT].[Customer] as c inner join\n[SalesLT].[CustomerAddress] as ca \non c.CustomerID=ca.CustomerID\ninner join [SalesLT].[Address] a\non a.AddressID=ca.AddressID",
+								"sqlReaderQuery": "select Title,FirstName,MiddleName,LastName,AddressLine1,AddressLine2,City,StateProvince,CountryRegion,PostalCode\nfrom\n[SalesLT].[Customer] as c inner join\n[SalesLT].[CustomerAddress] as ca \non c.CustomerID=ca.CustomerID\ninner join [SalesLT].[Address] a\non a.AddressID=ca.AddressID",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
