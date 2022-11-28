@@ -3,17 +3,7 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQL_Generic",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"SchemaName": {
-					"value": "@dataset().SchemaName",
-					"type": "Expression"
-				},
-				"TableName": {
-					"value": "@dataset().TableName",
-					"type": "Expression"
-				}
-			}
+			"type": "LinkedServiceReference"
 		},
 		"parameters": {
 			"SchemaName": {
@@ -25,6 +15,16 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().SchemaName",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
 	}
 }
