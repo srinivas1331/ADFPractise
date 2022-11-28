@@ -12,6 +12,7 @@
 						"value": "@createArray('Customer','Product','Address')",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "Copy data1",
@@ -64,7 +65,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_SKALAVAADLS",
+									"referenceName": "DS_ADLS_Generic",
 									"type": "DatasetReference"
 								}
 							]
