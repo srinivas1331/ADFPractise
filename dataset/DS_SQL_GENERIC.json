@@ -2,8 +2,18 @@
 	"name": "DS_SQL_GENERIC",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_SQLDB",
-			"type": "LinkedServiceReference"
+			"referenceName": "LS_SQL_Generic",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"SchemaName": {
+					"value": "@dataset().SchemaName",
+					"type": "Expression"
+				},
+				"TableName": {
+					"value": "@dataset().TableName",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"SchemaName": {
