@@ -69,7 +69,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"folderpath": {
-											"value": "@item()",
+											"value": "@concat(item(),'/',formatDateTime(utcnow(),'yyyy/MM/dd'))",
 											"type": "Expression"
 										}
 									}
