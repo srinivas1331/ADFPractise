@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
 		},
+		"LS_ADLS_Generic_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_Generic'"
+		},
 		"LS_LandingStg_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_LandingStg'"
@@ -26,6 +30,14 @@
 		"LS_SQLDB_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB'"
+		},
+		"LS_SQL_Generic_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQL_Generic'"
+		},
+		"LS_ADLS_Generic_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
 			"type": "string",
@@ -65,6 +77,9 @@
 					"AzureFileStorage1_connectionString": {
 						"value": "[parameters('AzureFileStorage1_connectionString')]"
 					},
+					"LS_ADLS_Generic_accountKey": {
+						"value": "[parameters('LS_ADLS_Generic_accountKey')]"
+					},
 					"LS_LandingStg_accountKey": {
 						"value": "[parameters('LS_LandingStg_accountKey')]"
 					},
@@ -76,6 +91,12 @@
 					},
 					"LS_SQLDB_connectionString": {
 						"value": "[parameters('LS_SQLDB_connectionString')]"
+					},
+					"LS_SQL_Generic_connectionString": {
+						"value": "[parameters('LS_SQL_Generic_connectionString')]"
+					},
+					"LS_ADLS_Generic_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLS_Generic_properties_typeProperties_url')]"
 					},
 					"LS_LandingStg_properties_typeProperties_url": {
 						"value": "[parameters('LS_LandingStg_properties_typeProperties_url')]"
