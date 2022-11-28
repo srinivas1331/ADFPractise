@@ -34,7 +34,7 @@
 								"sink": {
 									"type": "DelimitedTextSink",
 									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
+										"type": "AzureFileStorageWriteSettings"
 									},
 									"formatSettings": {
 										"type": "DelimitedTextWriteSettings",
@@ -60,7 +60,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_SKALAVAADLS",
+									"referenceName": "DS_FileshareSampleFile",
 									"type": "DatasetReference"
 								}
 							]
