@@ -1,0 +1,98 @@
+{
+	"name": "Copy All Tables_1",
+	"properties": {
+		"activities": [
+			{
+				"name": "CopyAllTables",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('tableslist')",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".csv"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_SQL_GENERIC",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": "saleslt",
+										"TableName": "@item()"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_ADLS_Generic",
+									"type": "DatasetReference",
+									"parameters": {
+										"folderpath": {
+											"value": "@concat(item(),'/',formatDateTime(utcnow(),'yyyy/MM/dd'))",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"tableslist": {
+				"type": "Array",
+				"defaultValue": [
+					"Customer",
+					"Product",
+					"Address"
+				]
+			}
+		},
+		"folder": {
+			"name": "Srinivas/Practise"
+		},
+		"annotations": []
+	}
+}
