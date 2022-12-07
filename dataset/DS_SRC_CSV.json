@@ -10,9 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "testing.csv",
-				"folderPath": "stg",
-				"fileSystem": "src"
+				"fileName": "Order.csv",
+				"fileSystem": "stage"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
