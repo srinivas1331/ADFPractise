@@ -1,0 +1,19 @@
+{
+	"name": "DS_FINANCIAL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SKALAVAADLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Financials.xlsm",
+				"fileSystem": "input"
+			}
+		},
+		"schema": []
+	}
+}
