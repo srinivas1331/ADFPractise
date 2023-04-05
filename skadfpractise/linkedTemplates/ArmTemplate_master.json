@@ -41,7 +41,7 @@
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://landingstg.dfs.core.windows.net/"
+			"defaultValue": "https://adlsskalava.dfs.core.windows.net/"
 		},
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"type": "string",

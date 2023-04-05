@@ -30,7 +30,7 @@
 			"value": "https://skalavaadls.dfs.core.windows.net/"
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
-			"value": "https://landingstg.dfs.core.windows.net/"
+			"value": "https://adlsskalava.dfs.core.windows.net/"
 		},
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"value": "https://skalavaadls.dfs.core.windows.net/"

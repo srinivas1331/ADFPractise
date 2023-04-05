@@ -41,7 +41,7 @@
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://landingstg.dfs.core.windows.net/"
+			"defaultValue": "https://adlsskalava.dfs.core.windows.net/"
 		},
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"type": "string",
@@ -367,6 +367,32 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_FINANCIAL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SKALAVAADLS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Financials.xlsm",
+						"fileSystem": "input"
+					},
+					"sheetIndex": 0,
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SKALAVAADLS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DS_FileshareSampleFile')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -404,6 +430,35 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureFileStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Financial_SQL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQLDB",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"dsTblName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().dsTblName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB')]"
 			]
 		},
 		{
@@ -753,9 +808,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "testing.csv",
-						"folderPath": "stg",
-						"fileSystem": "src"
+						"fileName": "Order.csv",
+						"fileSystem": "stage"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -794,56 +848,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_LandingStg')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_SampleBLOBFile')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SKSAMPLE",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "hr123stg"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SKSAMPLE')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DS_TGT_JSON')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SKSAMPLE",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "hr123stg"
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SKSAMPLE')]"
 			]
 		}
 	]

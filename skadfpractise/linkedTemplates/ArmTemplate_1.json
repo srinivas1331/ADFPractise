@@ -13,6 +13,52 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/DS_SampleBLOBFile')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SKSAMPLE",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "hr123stg"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_TGT_JSON')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SKSAMPLE",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "hr123stg"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Child_Copy_AddressTableData')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -129,7 +175,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SampleBLOBFile')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Child_Ingestion_Address_To_CSV')]",
@@ -557,6 +605,82 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Copy Financial Data')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Financial Data",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_FINANCIAL",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Financial_SQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"dsTblName": {
+										"value": "Financial",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Srinivas/Practise1"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Copy_CSV_to_JSON')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -622,7 +746,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_TGT_JSON')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Copy_CustomerTbl_to_BLOB')]",
@@ -841,7 +967,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SampleBLOBFile')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Copy_FILESHARECSV_to_BLOBCSV')]",
@@ -911,7 +1039,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SampleBLOBFile')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Copy_Parquet_to_JSON')]",
@@ -1130,7 +1260,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_TGT_JSON')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Ingestion_Customer_JOIN_ADLS')]",
@@ -1275,7 +1407,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SampleBLOBFile')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Ingestion_Customer_SQLDB_ADLS_Folder')]",
@@ -1663,6 +1797,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SampleBLOBFile')]",
 				"[concat(variables('factoryId'), '/pipelines/Child_Copy_AddressTableData')]"
 			]
 		},
