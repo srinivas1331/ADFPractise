@@ -73,7 +73,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "select count(*) as rowcnt from saleslt.customer",
+								"sqlReaderQuery": "select count(*) as rowcnt from saleslt.product",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -98,7 +98,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@greater(activity('Fetch Record Count').output.firstRow.rowcnt,1000)\n",
+								"value": "@greater(activity('Fetch Record Count').output.firstRow.rowcnt,200)\n",
 								"type": "Expression"
 							},
 							"ifTrueActivities": [
@@ -123,7 +123,7 @@
 										"sink": {
 											"type": "DelimitedTextSink",
 											"storeSettings": {
-												"type": "AzureBlobStorageWriteSettings"
+												"type": "AzureBlobFSWriteSettings"
 											},
 											"formatSettings": {
 												"type": "DelimitedTextWriteSettings",
@@ -150,7 +150,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_SampleBLOBFile",
+											"referenceName": "DS_SKALAVAADLS",
 											"type": "DatasetReference",
 											"parameters": {}
 										}
@@ -172,7 +172,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_ProdTable')]",
 				"[concat(variables('factoryId'), '/datasets/DS_AddressTable')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SampleBLOBFile')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SKALAVAADLS')]"
 			]
 		},
 		{
@@ -2099,9 +2099,65 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@greater(int(activity('FetchRecordCount').output.firstRow.cnt),400)",
+								"value": "@greater(activity('FetchRecordCount').output.firstRow.cnt,1000)",
 								"type": "Expression"
 							},
+							"ifFalseActivities": [
+								{
+									"name": "Copy Prod Data",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".csv"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_ProdTable",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_SKALAVAADLS",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							],
 							"ifTrueActivities": [
 								{
 									"name": "Copy Customer Data",
@@ -2172,7 +2228,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_CUSTOMERTBL')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SKALAVAADLS')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SKALAVAADLS')]",
+				"[concat(variables('factoryId'), '/datasets/DS_ProdTable')]"
 			]
 		},
 		{
