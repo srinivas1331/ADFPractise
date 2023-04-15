@@ -1,6 +1,52 @@
 {
 	"name": "Lookup_Example",
 	"properties": {
+		"activities": [
+			{
+				"name": "FetchRecordCount",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select count(*) as cnt from [SalesLT].[Address]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_CUSTOMERTBL",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Record Count Checking",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "FetchRecordCount",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@greater(activity('FetchRecordCount').output.firstRow,400)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
 		"folder": {
 			"name": "Srinivas/Practise"
 		},
