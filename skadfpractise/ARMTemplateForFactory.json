@@ -2156,6 +2156,27 @@
 											"parameters": {}
 										}
 									]
+								},
+								{
+									"name": "Execute Child Copy Address Table",
+									"type": "ExecutePipeline",
+									"dependsOn": [
+										{
+											"activity": "Copy Prod Data",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "Child_Copy_AddressTableData",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {}
+									}
 								}
 							],
 							"ifTrueActivities": [
@@ -2229,7 +2250,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_CUSTOMERTBL')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SKALAVAADLS')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ProdTable')]"
+				"[concat(variables('factoryId'), '/datasets/DS_ProdTable')]",
+				"[concat(variables('factoryId'), '/pipelines/Child_Copy_AddressTableData')]"
 			]
 		},
 		{
