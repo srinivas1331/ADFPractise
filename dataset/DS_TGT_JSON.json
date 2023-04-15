@@ -2,15 +2,15 @@
 	"name": "DS_TGT_JSON",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_SKSAMPLE",
+			"referenceName": "LS_SKALAVAADLS",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
-				"container": "hr123stg"
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "output"
 			}
 		},
 		"schema": {}
