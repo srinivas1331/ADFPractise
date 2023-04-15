@@ -22,8 +22,12 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "DS_CUSTOMERTBL",
-						"type": "DatasetReference"
+						"referenceName": "DS_SQL_GENERIC",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "saleslt",
+							"TableName": "Address"
+						}
 					}
 				}
 			},
@@ -86,8 +90,12 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_ProdTable",
-									"type": "DatasetReference"
+									"referenceName": "DS_SQL_GENERIC",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": "saleslt",
+										"TableName": "product"
+									}
 								}
 							],
 							"outputs": [
@@ -138,15 +146,9 @@
 									"partitionOption": "None"
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
 								},
 								"enableStaging": false,
 								"translator": {
@@ -166,8 +168,12 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_SKALAVAADLS",
-									"type": "DatasetReference"
+									"referenceName": "DS_SQL_GENERIC",
+									"type": "DatasetReference",
+									"parameters": {
+										"SchemaName": "saleslt",
+										"TableName": "customer"
+									}
 								}
 							]
 						}
