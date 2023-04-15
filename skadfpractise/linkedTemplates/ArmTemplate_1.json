@@ -72,15 +72,16 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "LS_SKSAMPLE",
+					"referenceName": "LS_SKALAVAADLS",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "hr123stg"
+						"type": "AzureBlobFSLocation",
+						"fileName": "customertbl",
+						"fileSystem": "output"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -905,7 +906,7 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
+									"type": "AzureBlobFSWriteSettings"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
@@ -1132,7 +1133,7 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
+									"type": "AzureBlobFSWriteSettings"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
@@ -1493,7 +1494,7 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
+									"type": "AzureBlobFSWriteSettings"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
@@ -1732,13 +1733,13 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Copy_SQLTBL_BLOB_FILTER')]",
+			"name": "[concat(parameters('factoryName'), '/Lookup_Example')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Fetch Record Count",
+						"name": "FetchRecordCount",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -1752,7 +1753,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "select count(*) as rowcnt from saleslt.customer",
+								"sqlReaderQuery": "select count(*) as cnt from [SalesLT].[Address]",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
@@ -1764,11 +1765,11 @@
 						}
 					},
 					{
-						"name": "CustomerTableRecordCountCheck",
+						"name": "Record Count Checking",
 						"type": "IfCondition",
 						"dependsOn": [
 							{
-								"activity": "Fetch Record Count",
+								"activity": "FetchRecordCount",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -1777,12 +1778,12 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@greater(activity('Fetch Record Count').output.firstRow.rowcnt,1000)\n",
+								"value": "@greater(int(activity('FetchRecordCount').output.firstRow.cnt),400)",
 								"type": "Expression"
 							},
-							"ifFalseActivities": [
+							"ifTrueActivities": [
 								{
-									"name": "CopyData from Prod Table",
+									"name": "Copy Customer Data",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -1802,89 +1803,12 @@
 										"sink": {
 											"type": "DelimitedTextSink",
 											"storeSettings": {
-												"type": "AzureBlobStorageWriteSettings"
+												"type": "AzureBlobFSWriteSettings"
 											},
 											"formatSettings": {
 												"type": "DelimitedTextWriteSettings",
 												"quoteAllText": true,
 												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "DS_ProdTable",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "DS_SampleBLOBFile",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									]
-								},
-								{
-									"name": "Execute Child Pipeline Address",
-									"type": "ExecutePipeline",
-									"dependsOn": [
-										{
-											"activity": "CopyData from Prod Table",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "Child_Copy_AddressTableData",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {}
-									}
-								}
-							],
-							"ifTrueActivities": [
-								{
-									"name": "Copy Data Customer Table",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "AzureSqlSource",
-											"queryTimeout": "02:00:00",
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobStorageWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".csv"
 											}
 										},
 										"enableStaging": false,
@@ -1906,7 +1830,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_SampleBLOBFile",
+											"referenceName": "DS_SKALAVAADLS",
 											"type": "DatasetReference",
 											"parameters": {}
 										}
@@ -1925,10 +1849,7 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_SampleBLOBFile')]",
-				"[concat(variables('factoryId'), '/pipelines/Child_Copy_AddressTableData')]"
-			]
+			"dependsOn": []
 		}
 	]
 }
