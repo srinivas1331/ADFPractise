@@ -2,15 +2,15 @@
 	"name": "DS_SampleBLOBFile",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "LS_SKSAMPLE",
+			"referenceName": "LS_SKALAVAADLS",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation",
-				"container": "hr123stg"
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "output"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
