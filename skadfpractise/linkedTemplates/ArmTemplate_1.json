@@ -414,7 +414,10 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"SchemaName": "saleslt",
-												"TableName": "@item()"
+												"TableName": {
+													"value": "@item()",
+													"type": "Expression"
+												}
 											}
 										}
 									],

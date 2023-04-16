@@ -362,7 +362,10 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"SchemaName": "saleslt",
-												"TableName": "@item()"
+												"TableName": {
+													"value": "@item()",
+													"type": "Expression"
+												}
 											}
 										}
 									],
@@ -2252,9 +2255,9 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_SQL_GENERIC')]",
-				"[concat(variables('factoryId'), '/datasets/DS_CUSTOMERTBL')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SKALAVAADLS')]",
-				"[concat(variables('factoryId'), '/pipelines/Child_Copy_AddressTableData')]"
+				"[concat(variables('factoryId'), '/pipelines/Child_Copy_AddressTableData')]",
+				"[concat(variables('factoryId'), '/datasets/DS_CUSTOMERTBL')]"
 			]
 		},
 		{
