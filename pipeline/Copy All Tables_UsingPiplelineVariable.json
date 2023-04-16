@@ -1,5 +1,5 @@
 {
-	"name": "Copy All Tables_1",
+	"name": "Copy All Tables_UsingPiplelineVariable",
 	"properties": {
 		"activities": [
 			{
