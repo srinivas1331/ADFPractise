@@ -1644,7 +1644,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "CopyCustomerData",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -2079,9 +2079,12 @@
 								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "DS_CUSTOMERTBL",
+								"referenceName": "DS_SQL_GENERIC",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"SchemaName": "saleslt",
+									"TableName": "Address"
+								}
 							}
 						}
 					},
@@ -2144,9 +2147,12 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "DS_ProdTable",
+											"referenceName": "DS_SQL_GENERIC",
 											"type": "DatasetReference",
-											"parameters": {}
+											"parameters": {
+												"SchemaName": "saleslt",
+												"TableName": "product"
+											}
 										}
 									],
 									"outputs": [
@@ -2199,15 +2205,9 @@
 											"partitionOption": "None"
 										},
 										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
+											"type": "AzureSqlSink",
+											"writeBehavior": "insert",
+											"sqlWriterUseTableLock": false
 										},
 										"enableStaging": false,
 										"translator": {
@@ -2228,9 +2228,12 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DS_SKALAVAADLS",
+											"referenceName": "DS_SQL_GENERIC",
 											"type": "DatasetReference",
-											"parameters": {}
+											"parameters": {
+												"SchemaName": "saleslt",
+												"TableName": "customer"
+											}
 										}
 									]
 								}
@@ -2248,9 +2251,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SQL_GENERIC')]",
 				"[concat(variables('factoryId'), '/datasets/DS_CUSTOMERTBL')]",
 				"[concat(variables('factoryId'), '/datasets/DS_SKALAVAADLS')]",
-				"[concat(variables('factoryId'), '/datasets/DS_ProdTable')]",
 				"[concat(variables('factoryId'), '/pipelines/Child_Copy_AddressTableData')]"
 			]
 		},
@@ -2899,7 +2902,8 @@
 				},
 				"parameters": {
 					"SchemaName": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "saleslt"
 					},
 					"TableName": {
 						"type": "string"
@@ -2993,7 +2997,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "customertbl",
 						"fileSystem": "output"
 					},
 					"columnDelimiter": ",",

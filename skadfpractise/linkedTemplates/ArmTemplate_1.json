@@ -80,7 +80,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "customertbl",
 						"fileSystem": "output"
 					},
 					"columnDelimiter": ",",
@@ -1472,7 +1471,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "CopyCustomerData",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
