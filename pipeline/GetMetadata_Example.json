@@ -81,6 +81,7 @@
 												"storeSettings": {
 													"type": "AzureBlobFSReadSettings",
 													"recursive": true,
+													"wildcardFileName": "*",
 													"enablePartitionDiscovery": false
 												},
 												"formatSettings": {
@@ -110,11 +111,8 @@
 										},
 										"inputs": [
 											{
-												"referenceName": "DS_ADLS_Generic",
-												"type": "DatasetReference",
-												"parameters": {
-													"folderpath": "Product"
-												}
+												"referenceName": "DS_GENERIC_FILE",
+												"type": "DatasetReference"
 											}
 										],
 										"outputs": [
