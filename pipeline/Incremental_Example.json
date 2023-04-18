@@ -87,7 +87,70 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select  * from saleslt.customer where modifieddate > @{activity('Get High Water Mark Date').output.firstRow.Prop_0}\nand modifieddate <= @{activity('Get Last Modified Date from Table').output.firstRow}",
+							"value": "select  * from saleslt.customer where modifieddate > '@{activity('Get High Water Mark Date').output.firstRow.Prop_0}'\nand modifieddate <= '@{activity('Get Last Modified Date from Table').output.firstRow.LastModifiedDate}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_CUSTOMERTBL",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Landing",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Update HighWater Mark",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Incremental Copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "select @{activity('Get Last Modified Date from Table').output.firstRow.LastModifiedDate}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
