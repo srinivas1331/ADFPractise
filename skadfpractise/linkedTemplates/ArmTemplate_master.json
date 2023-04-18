@@ -31,6 +31,11 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB'"
 		},
+		"LS_SQLDB_Key_Vault_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB_Key_Vault'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=azserver123.database.windows.net;Initial Catalog=ADFPractise;User ID=azure123"
+		},
 		"LS_SQL_Generic_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQL_Generic'"
@@ -38,6 +43,10 @@
 		"LS_ADLS_Generic_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
+		},
+		"LS_KeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://KVskalava.vault.azure.net/"
 		},
 		"LS_LandingStg_properties_typeProperties_url": {
 			"type": "string",
@@ -98,6 +107,9 @@
 					"LS_ADLS_Generic_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLS_Generic_properties_typeProperties_url')]"
 					},
+					"LS_KeyVault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('LS_KeyVault_properties_typeProperties_baseUrl')]"
+					},
 					"LS_LandingStg_properties_typeProperties_url": {
 						"value": "[parameters('LS_LandingStg_properties_typeProperties_url')]"
 					},
@@ -121,6 +133,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"LS_SQLDB_Key_Vault_connectionString": {
+						"value": "[parameters('LS_SQLDB_Key_Vault_connectionString')]"
 					}
 				}
 			},
