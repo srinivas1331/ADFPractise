@@ -122,7 +122,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_Landing",
+						"referenceName": "DS_SKALAVAADLS",
 						"type": "DatasetReference"
 					}
 				]
@@ -150,7 +150,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select @{activity('Get Last Modified Date from Table').output.firstRow.LastModifiedDate}",
+							"value": "select '@{activity('Get Last Modified Date from Table').output.firstRow.LastModifiedDate}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
