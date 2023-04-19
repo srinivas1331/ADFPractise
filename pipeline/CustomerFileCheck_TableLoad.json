@@ -45,7 +45,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(activity('Customer Table Exists Check').output.exists,'true')",
+						"value": "@activity('Customer Table Exists Check').output.exists\n",
 						"type": "Expression"
 					},
 					"ifTrueActivities": [
@@ -75,8 +75,12 @@
 								},
 								"sink": {
 									"type": "AzureSqlSink",
-									"writeBehavior": "insert",
-									"sqlWriterUseTableLock": false
+									"writeBehavior": "upsert",
+									"upsertSettings": {
+										"useTempDB": true
+									},
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
 								"translator": {
