@@ -40,6 +40,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQL_Generic'"
 		},
+		"LS_ADLSSTORAGESKALAVA_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLSSTORAGESKALAVA'"
+		},
 		"LS_ADLS_Generic_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
@@ -55,6 +59,10 @@
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
+		},
+		"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsstorageskalava.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -104,6 +112,9 @@
 					"LS_SQL_Generic_connectionString": {
 						"value": "[parameters('LS_SQL_Generic_connectionString')]"
 					},
+					"LS_ADLSSTORAGESKALAVA_accountKey": {
+						"value": "[parameters('LS_ADLSSTORAGESKALAVA_accountKey')]"
+					},
 					"LS_ADLS_Generic_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLS_Generic_properties_typeProperties_url')]"
 					},
@@ -115,6 +126,9 @@
 					},
 					"LS_SKALAVAADLS_properties_typeProperties_url": {
 						"value": "[parameters('LS_SKALAVAADLS_properties_typeProperties_url')]"
+					},
+					"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLSSTORAGESKALAVA_properties_typeProperties_url')]"
 					}
 				}
 			},

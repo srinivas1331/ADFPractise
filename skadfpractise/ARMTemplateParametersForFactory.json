@@ -29,6 +29,9 @@
 		"LS_SQL_Generic_connectionString": {
 			"value": ""
 		},
+		"LS_ADLSSTORAGESKALAVA_accountKey": {
+			"value": ""
+		},
 		"LS_ADLS_Generic_properties_typeProperties_url": {
 			"value": "https://skalavaadls.dfs.core.windows.net/"
 		},
@@ -40,6 +43,9 @@
 		},
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"value": "https://skalavaadls.dfs.core.windows.net/"
+		},
+		"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
+			"value": "https://adlsstorageskalava.dfs.core.windows.net/"
 		}
 	}
 }
