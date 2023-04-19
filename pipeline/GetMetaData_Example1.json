@@ -1,0 +1,43 @@
+{
+	"name": "GetMetaData_Example1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Fetching Files from ADLS Folder",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_ADLS_Generic",
+						"type": "DatasetReference",
+						"parameters": {
+							"folderpath": "Product"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Srinivas/Assignment6"
+		},
+		"annotations": []
+	}
+}
