@@ -51,7 +51,7 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> CustomerTable",
 				"source(output(",
-				"          CustomerID as string,",
+				"          CustomerID as integer,",
 				"          NameStyle as string,",
 				"          Title as string,",
 				"          FirstName as string,",
