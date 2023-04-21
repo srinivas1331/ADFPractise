@@ -20,12 +20,15 @@
 		},
 		"schema": [
 			{
+				"name": "id",
 				"type": "String"
 			},
 			{
+				"name": "name",
 				"type": "String"
 			},
 			{
+				"name": "address",
 				"type": "String"
 			}
 		]
