@@ -23,7 +23,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "AddingIsActiveColumn"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          id as integer,",
@@ -42,7 +46,8 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> EMPTable"
+				"     format: 'table') ~> EMPTable",
+				"EMPFile derive(isactive = 1) ~> AddingIsActiveColumn"
 			]
 		}
 	}
