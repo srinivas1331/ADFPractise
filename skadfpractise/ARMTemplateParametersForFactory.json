@@ -44,6 +44,9 @@
 		"LS_LandingStg_properties_typeProperties_url": {
 			"value": "https://landingstg.dfs.core.windows.net/"
 		},
+		"LS_RESTAPI_properties_typeProperties_url": {
+			"value": "https://dummy.restapiexample.com/api/v1/employees"
+		},
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"value": "https://skalavaadls.dfs.core.windows.net/"
 		}

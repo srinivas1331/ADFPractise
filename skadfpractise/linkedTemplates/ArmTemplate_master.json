@@ -60,6 +60,10 @@
 			"type": "string",
 			"defaultValue": "https://landingstg.dfs.core.windows.net/"
 		},
+		"LS_RESTAPI_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dummy.restapiexample.com/api/v1/employees"
+		},
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
@@ -126,6 +130,9 @@
 					},
 					"LS_LandingStg_properties_typeProperties_url": {
 						"value": "[parameters('LS_LandingStg_properties_typeProperties_url')]"
+					},
+					"LS_RESTAPI_properties_typeProperties_url": {
+						"value": "[parameters('LS_RESTAPI_properties_typeProperties_url')]"
 					},
 					"LS_SKALAVAADLS_properties_typeProperties_url": {
 						"value": "[parameters('LS_SKALAVAADLS_properties_typeProperties_url')]"
