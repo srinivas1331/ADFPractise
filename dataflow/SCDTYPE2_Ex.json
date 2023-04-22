@@ -9,17 +9,13 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DS_EMPFILE",
-						"type": "DatasetReference"
-					},
-					"name": "EMPFile"
-				},
-				{
-					"dataset": {
 						"referenceName": "DS_EMPTABLE",
 						"type": "DatasetReference"
 					},
 					"name": "EmpTable"
+				},
+				{
+					"name": "source1"
 				}
 			],
 			"sinks": [],
@@ -32,14 +28,6 @@
 				"source(output(",
 				"          id as integer,",
 				"          name as string,",
-				"          address as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> EMPFile",
-				"source(output(",
-				"          id as integer,",
-				"          name as string,",
 				"          address as string,",
 				"          isactive as integer",
 				"     ),",
@@ -47,6 +35,8 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> EmpTable",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source1",
 				"EmpTable select(mapColumn(",
 				"          id_db = id,",
 				"          isactive_db = isactive",
