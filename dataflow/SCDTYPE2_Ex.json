@@ -15,7 +15,11 @@
 					"name": "EmpTable"
 				},
 				{
-					"name": "source1"
+					"dataset": {
+						"referenceName": "DS_EMPFILE",
+						"type": "DatasetReference"
+					},
+					"name": "EmpFile"
 				}
 			],
 			"sinks": [],
@@ -35,8 +39,14 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> EmpTable",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1",
+				"source(output(",
+				"          id as integer,",
+				"          name as string,",
+				"          address as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> EmpFile",
 				"EmpTable select(mapColumn(",
 				"          id_db = id,",
 				"          isactive_db = isactive",
