@@ -26,6 +26,12 @@
 			"transformations": [
 				{
 					"name": "EmpSelect"
+				},
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -52,7 +58,12 @@
 				"          isactive_db = isactive",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> EmpSelect"
+				"     skipDuplicateMapOutputs: true) ~> EmpSelect",
+				"EmpFile, EmpSelect lookup(id == id_db,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 filter(!isNull(id_db)) ~> filter1"
 			]
 		}
 	}
