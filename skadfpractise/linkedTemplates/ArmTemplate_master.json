@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureFileStorage1'"
 		},
+		"LS_ADLSSTORAGESKALAVA_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLSSTORAGESKALAVA'"
+		},
 		"LS_ADLS_Generic_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_Generic'"
@@ -40,9 +44,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQL_Generic'"
 		},
-		"LS_ADLSSTORAGESKALAVA_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_ADLSSTORAGESKALAVA'"
+		"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsstorageskalava.dfs.core.windows.net/"
 		},
 		"LS_ADLS_Generic_properties_typeProperties_url": {
 			"type": "string",
@@ -59,10 +63,6 @@
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
-		},
-		"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlsstorageskalava.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -94,6 +94,9 @@
 					"AzureFileStorage1_connectionString": {
 						"value": "[parameters('AzureFileStorage1_connectionString')]"
 					},
+					"LS_ADLSSTORAGESKALAVA_accountKey": {
+						"value": "[parameters('LS_ADLSSTORAGESKALAVA_accountKey')]"
+					},
 					"LS_ADLS_Generic_accountKey": {
 						"value": "[parameters('LS_ADLS_Generic_accountKey')]"
 					},
@@ -112,8 +115,8 @@
 					"LS_SQL_Generic_connectionString": {
 						"value": "[parameters('LS_SQL_Generic_connectionString')]"
 					},
-					"LS_ADLSSTORAGESKALAVA_accountKey": {
-						"value": "[parameters('LS_ADLSSTORAGESKALAVA_accountKey')]"
+					"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLSSTORAGESKALAVA_properties_typeProperties_url')]"
 					},
 					"LS_ADLS_Generic_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLS_Generic_properties_typeProperties_url')]"
@@ -126,9 +129,6 @@
 					},
 					"LS_SKALAVAADLS_properties_typeProperties_url": {
 						"value": "[parameters('LS_SKALAVAADLS_properties_typeProperties_url')]"
-					},
-					"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
-						"value": "[parameters('LS_ADLSSTORAGESKALAVA_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -175,6 +175,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'skadfpractise_ArmTemplate_1')]"
+			]
+		},
+		{
+			"name": "skadfpractise_ArmTemplate_3",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_3.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'skadfpractise_ArmTemplate_2')]"
 			]
 		}
 	]
