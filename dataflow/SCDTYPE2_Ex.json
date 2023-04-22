@@ -19,13 +19,13 @@
 						"referenceName": "DS_EMPTABLE",
 						"type": "DatasetReference"
 					},
-					"name": "EMPTable"
+					"name": "EmpTable"
 				}
 			],
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "AddingIsActiveColumn"
+					"name": "EmpSelect"
 				}
 			],
 			"scriptLines": [
@@ -46,8 +46,13 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> EMPTable",
-				"EMPFile derive(isactive = 1) ~> AddingIsActiveColumn"
+				"     format: 'table') ~> EmpTable",
+				"EmpTable select(mapColumn(",
+				"          id_db = id,",
+				"          isactive_db = isactive",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> EmpSelect"
 			]
 		}
 	}
