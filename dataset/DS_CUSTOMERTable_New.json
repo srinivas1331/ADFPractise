@@ -1,0 +1,16 @@
+{
+	"name": "DS_CUSTOMERTable_New",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Customer_EvenRecords"
+		}
+	}
+}
