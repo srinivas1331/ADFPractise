@@ -19,6 +19,9 @@
 			"transformations": [
 				{
 					"name": "aggregate1"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -44,8 +47,9 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> ProductFile",
-				"ProductFile aggregate(groupBy(ProdcutCategoryId = ProductCategoryID),",
-				"     HighestListPrice = max(ListPrice)) ~> aggregate1"
+				"filter1 aggregate(groupBy(ProdcutCategoryId = ProductCategoryID),",
+				"     HighestListPrice = max(ListPrice)) ~> aggregate1",
+				"ProductFile filter(Color!='Blue') ~> filter1"
 			]
 		}
 	}
