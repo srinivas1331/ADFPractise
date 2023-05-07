@@ -9,7 +9,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DS_CustomerFile_Input",
+						"referenceName": "DS_CustomerAddressFile",
 						"type": "DatasetReference"
 					},
 					"name": "CustomerFile"
