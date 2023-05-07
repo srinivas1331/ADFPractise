@@ -15,7 +15,15 @@
 					"name": "ProductFile"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ProductResultOutput",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "aggregate1"
@@ -49,7 +57,25 @@
 				"     ignoreNoFilesFound: false) ~> ProductFile",
 				"filter1 aggregate(groupBy(ProdcutCategoryId = ProductCategoryID),",
 				"     HighestListPrice = max(ListPrice)) ~> aggregate1",
-				"ProductFile filter(Color!='Blue') ~> filter1"
+				"ProductFile filter(Color!='Blue') ~> filter1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {9} as string,",
+				"          {8713 Yosemite Ct.} as string,",
+				"          Prop_2 as string,",
+				"          Bothell as string,",
+				"          Washington as string,",
+				"          {United States} as string,",
+				"          {98011} as string,",
+				"          {268af621-76d7-4c78-9441-144fd139821a} as string,",
+				"          {2006-07-01 00:00:00.0000000} as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
