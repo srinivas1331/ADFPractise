@@ -22,13 +22,24 @@
 					"name": "CustomerAddressFile"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_custtblandaddfile",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "join1"
 				},
 				{
 					"name": "filter1"
+				},
+				{
+					"name": "sort1"
 				}
 			],
 			"scriptLines": [
@@ -78,7 +89,26 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join1",
-				"join1 filter(CustomerTable@CustomerID > 1000 && CustomerTable@CustomerID < 2000) ~> filter1"
+				"join1 filter(CustomerTable@CustomerID > 1000 && CustomerTable@CustomerID < 2000) ~> filter1",
+				"filter1 sort(asc(CustomerTable@CustomerID, true)) ~> sort1",
+				"sort1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {9} as string,",
+				"          {8713 Yosemite Ct.} as string,",
+				"          Prop_2 as string,",
+				"          Bothell as string,",
+				"          Washington as string,",
+				"          {United States} as string,",
+				"          {98011} as string,",
+				"          {268af621-76d7-4c78-9441-144fd139821a} as string,",
+				"          {2006-07-01 00:00:00.0000000} as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
