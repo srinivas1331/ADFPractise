@@ -1,5 +1,5 @@
 {
-	"name": "DS_CustomerFile_Input",
+	"name": "DS_CustomerAddressFile",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SKALAVAADLS",
