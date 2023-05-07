@@ -26,6 +26,9 @@
 			"transformations": [
 				{
 					"name": "join1"
+				},
+				{
+					"name": "filter1"
 				}
 			],
 			"scriptLines": [
@@ -74,7 +77,8 @@
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1"
+				"     broadcast: 'auto')~> join1",
+				"join1 filter(CustomerTable@CustomerID > 1000 && CustomerTable@CustomerID < 2000) ~> filter1"
 			]
 		}
 	}
