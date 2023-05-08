@@ -55,7 +55,7 @@
 						"referenceName": "DS_GEVechicle_Landing",
 						"type": "DatasetReference",
 						"parameters": {
-							"landingfolder": "@concat(formatDateTime(utcNow(),'yyyy'),'/',formatDateTime(utcNow(),'MM'),'/',formatDateTime(utcNow(),'dd'),'/')"
+							"landingfolder": "@concat('landing\\',formatDateTime(utcNow(),'yyyy'),'/',formatDateTime(utcNow(),'MM'),'/',formatDateTime(utcNow(),'dd'))"
 						}
 					}
 				]
