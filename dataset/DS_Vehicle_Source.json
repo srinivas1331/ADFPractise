@@ -1,0 +1,22 @@
+{
+	"name": "DS_Vehicle_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_GEVehicle_Source",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folderpath": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			}
+		},
+		"schema": {}
+	}
+}
