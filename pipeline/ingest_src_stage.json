@@ -52,7 +52,10 @@
 				"outputs": [
 					{
 						"referenceName": "DS_GEVechicle_Landing",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"landingfolder": "@concat(formatDateTime(utcNow(),'yyyy'),'/',formatDateTime(utcNow(),'MM'),'/',formatDateTime(utcNow(),'dd'),'/')"
+						}
 					}
 				]
 			}
