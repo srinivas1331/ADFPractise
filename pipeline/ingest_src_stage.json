@@ -28,12 +28,14 @@
 						}
 					},
 					"sink": {
-						"type": "JsonSink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings"
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false
@@ -44,7 +46,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"folderpath": {
-								"value": "@concat('source/',formatDateTime(utcNow(),'yyyy'),'/',formatDateTime(utcNow(),'MM'),'/',formatDateTime(utcNow(),'dd'))",
+								"value": "@concat(formatDateTime(utcNow(),'yyyy'),'/',formatDateTime(utcNow(),'MM'),'/',formatDateTime(utcNow(),'dd'))",
 								"type": "Expression"
 							}
 						}
@@ -52,11 +54,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_GEVechicle_Landing",
-						"type": "DatasetReference",
-						"parameters": {
-							"landingfolder": "@concat('landing\\',formatDateTime(utcNow(),'yyyy'),'/',formatDateTime(utcNow(),'MM'),'/',formatDateTime(utcNow(),'dd'))"
-						}
+						"referenceName": "DS_SKALAVAADLS",
+						"type": "DatasetReference"
 					}
 				]
 			}
