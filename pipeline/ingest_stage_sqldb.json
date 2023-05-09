@@ -1,0 +1,9 @@
+{
+	"name": "ingest_stage_sqldb",
+	"properties": {
+		"folder": {
+			"name": "GE Vechicle System"
+		},
+		"annotations": []
+	}
+}
