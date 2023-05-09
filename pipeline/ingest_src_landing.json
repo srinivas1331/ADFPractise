@@ -1,9 +1,9 @@
 {
-	"name": "ingest_src_stage",
+	"name": "ingest_src_landing",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy Source to Stage Data",
+				"name": "Copy Source to landing Data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
