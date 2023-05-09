@@ -1,0 +1,40 @@
+{
+	"name": "DS_GEVEHICLE_STAGE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_GEVehicle",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "staging"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"VehicleID": {
+					"type": "string"
+				},
+				"latitiude": {
+					"type": "number"
+				},
+				"longitude": {
+					"type": "number"
+				},
+				"City": {
+					"type": "string"
+				},
+				"temeprature": {
+					"type": "integer"
+				},
+				"speed": {
+					"type": "integer"
+				}
+			}
+		}
+	}
+}
