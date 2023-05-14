@@ -90,7 +90,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select  * from dbo.Claim where create_timestamp > '@{activity('Get High Water Mark Date for Claim').output.firstRow.HighWaterMarkDate}'\nand create_timestamp <= '@{activity('Get Last Modified Date from Claim Table').output.firstRow.LastModifiedDate}'\n",
+							"value": "select  * from dbo.Claim where date_of_claim > '@{activity('Get High Water Mark Date for Claim').output.firstRow.HighWaterMarkDate}'\nand date_of_claim <= '@{activity('Get Last Modified Date from Claim Table').output.firstRow.LastModifiedDate}'\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
