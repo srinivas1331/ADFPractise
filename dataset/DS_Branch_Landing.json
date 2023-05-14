@@ -10,6 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('Branch_',formatDatetime(utcnow(),'dd-MM-yyy'),'.csv')",
+					"type": "Expression"
+				},
 				"folderPath": "Branch",
 				"fileSystem": "landing"
 			},
