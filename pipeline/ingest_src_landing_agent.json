@@ -135,7 +135,7 @@
 				]
 			},
 			{
-				"name": "Copy data1",
+				"name": "Update HighWaterMark Table",
 				"type": "Copy",
 				"dependsOn": [
 					{
