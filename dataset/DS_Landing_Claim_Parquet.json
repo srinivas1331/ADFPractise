@@ -1,0 +1,20 @@
+{
+	"name": "DS_Landing_Claim_Parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Policy",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Claim",
+				"fileSystem": "landing"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
