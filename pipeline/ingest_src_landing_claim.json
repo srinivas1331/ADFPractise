@@ -157,7 +157,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select 'Agent' as Table_Name,'@{activity('Get Last Modified Date from Agent Table').output.firstRow.LastModifiedDate}' as HighWaterMarkDate\n",
+							"value": "select 'Claim' as Table_Name,'@{activity('Get Last Modified Date from Claim Table').output.firstRow.LastModifiedDate}' as HighWaterMarkDate\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -217,7 +217,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "Agent"
+							"TableName": "Claim"
 						}
 					}
 				],
