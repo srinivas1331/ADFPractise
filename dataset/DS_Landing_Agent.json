@@ -1,0 +1,27 @@
+{
+	"name": "DS_Landing_Agent",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Policy",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat('Agent_',formatDatetime(utcnow(),'yyyyMMdd'),'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": "Agent",
+				"fileSystem": "landing"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
