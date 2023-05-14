@@ -19,6 +19,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_Generic'"
 		},
+		"LS_GEVehicle_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_GEVehicle'"
+		},
+		"LS_GEVehicle_Source_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_GEVehicle_Source'"
+		},
 		"LS_LandingStg_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_LandingStg'"
@@ -44,6 +52,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_SQL_Generic'"
 		},
+		"LS_Policy_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_Policy'"
+		},
 		"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlsstorageskalava.dfs.core.windows.net/"
@@ -51,6 +63,14 @@
 		"LS_ADLS_Generic_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
+		},
+		"LS_GEVehicle_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://gevehiclelanding.dfs.core.windows.net/"
+		},
+		"LS_GEVehicle_Source_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://gevehiclesource.dfs.core.windows.net/"
 		},
 		"LS_KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -67,6 +87,10 @@
 		"LS_SKALAVAADLS_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://skalavaadls.dfs.core.windows.net/"
+		},
+		"LS_Policy_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://policyliveproject.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -104,6 +128,12 @@
 					"LS_ADLS_Generic_accountKey": {
 						"value": "[parameters('LS_ADLS_Generic_accountKey')]"
 					},
+					"LS_GEVehicle_accountKey": {
+						"value": "[parameters('LS_GEVehicle_accountKey')]"
+					},
+					"LS_GEVehicle_Source_accountKey": {
+						"value": "[parameters('LS_GEVehicle_Source_accountKey')]"
+					},
 					"LS_LandingStg_accountKey": {
 						"value": "[parameters('LS_LandingStg_accountKey')]"
 					},
@@ -119,11 +149,20 @@
 					"LS_SQL_Generic_connectionString": {
 						"value": "[parameters('LS_SQL_Generic_connectionString')]"
 					},
+					"LS_Policy_accountKey": {
+						"value": "[parameters('LS_Policy_accountKey')]"
+					},
 					"LS_ADLSSTORAGESKALAVA_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLSSTORAGESKALAVA_properties_typeProperties_url')]"
 					},
 					"LS_ADLS_Generic_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLS_Generic_properties_typeProperties_url')]"
+					},
+					"LS_GEVehicle_properties_typeProperties_url": {
+						"value": "[parameters('LS_GEVehicle_properties_typeProperties_url')]"
+					},
+					"LS_GEVehicle_Source_properties_typeProperties_url": {
+						"value": "[parameters('LS_GEVehicle_Source_properties_typeProperties_url')]"
 					},
 					"LS_KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('LS_KeyVault_properties_typeProperties_baseUrl')]"
@@ -136,6 +175,9 @@
 					},
 					"LS_SKALAVAADLS_properties_typeProperties_url": {
 						"value": "[parameters('LS_SKALAVAADLS_properties_typeProperties_url')]"
+					},
+					"LS_Policy_properties_typeProperties_url": {
+						"value": "[parameters('LS_Policy_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -154,9 +196,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"LS_SQLDB_Key_Vault_connectionString": {
-						"value": "[parameters('LS_SQLDB_Key_Vault_connectionString')]"
 					}
 				}
 			},
@@ -177,6 +216,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"LS_SQLDB_Key_Vault_connectionString": {
+						"value": "[parameters('LS_SQLDB_Key_Vault_connectionString')]"
 					}
 				}
 			},
@@ -202,6 +244,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'skadfpractise_ArmTemplate_2')]"
+			]
+		},
+		{
+			"name": "skadfpractise_ArmTemplate_4",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_4.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'skadfpractise_ArmTemplate_3')]"
 			]
 		}
 	]
