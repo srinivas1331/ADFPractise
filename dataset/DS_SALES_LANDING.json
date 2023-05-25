@@ -1,0 +1,23 @@
+{
+	"name": "DS_SALES_LANDING",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SalesProject",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folderpath": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
