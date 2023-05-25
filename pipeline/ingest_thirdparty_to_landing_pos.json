@@ -57,7 +57,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"folderpath": {
-								"value": "POS/@{formatDateTime(utcNow(),'yyyy-MM-dd')}",
+								"value": "@{concat('POS/',formatDateTime(utcNow(),'yyyy-MM-dd'))}",
 								"type": "Expression"
 							}
 						}
