@@ -1,0 +1,42 @@
+{
+	"name": "DS_Sales_Supplier_Thirdparty",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SalesProject",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Supplier.parquet",
+				"folderPath": "SUP",
+				"fileSystem": "thirdparty"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "ProductID",
+				"type": "INT_32"
+			},
+			{
+				"name": "SupplierID",
+				"type": "INT_32"
+			},
+			{
+				"name": "StockLevel",
+				"type": "INT_32"
+			},
+			{
+				"name": "DeliveryDate",
+				"type": "TIMESTAMP_MICROS"
+			},
+			{
+				"name": "OrderDate",
+				"type": "UTF8"
+			}
+		]
+	}
+}
