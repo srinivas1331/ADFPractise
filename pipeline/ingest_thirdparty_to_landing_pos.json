@@ -1,0 +1,27 @@
+{
+	"name": "ingest_thirdparty_to_landing_pos",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy Data from Thridparty to Landing POS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"enableStaging": false
+				}
+			}
+		],
+		"folder": {
+			"name": "Sales Project"
+		},
+		"annotations": []
+	}
+}
