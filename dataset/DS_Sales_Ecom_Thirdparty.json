@@ -1,0 +1,39 @@
+{
+	"name": "DS_Sales_Ecom_Thirdparty",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SalesProject",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Ecom.json",
+				"folderPath": "ECOM",
+				"fileSystem": "thirdparty"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"SessionID": {
+					"type": "integer"
+				},
+				"UserID": {
+					"type": "integer"
+				},
+				"ProductID": {
+					"type": "integer"
+				},
+				"Action": {
+					"type": "string"
+				},
+				"Timestamp": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
