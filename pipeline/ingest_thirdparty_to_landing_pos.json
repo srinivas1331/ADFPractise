@@ -27,14 +27,12 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "ParquetSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".csv"
+							"type": "ParquetWriteSettings"
 						}
 					},
 					"enableStaging": false,
@@ -55,7 +53,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SALES_LANDING_CSV",
+						"referenceName": "DS_SALES_LANDING",
 						"type": "DatasetReference",
 						"parameters": {
 							"folderpath": "POS/@{formatDateTime(utcNow(),'yyyy-MM-dd')}"
